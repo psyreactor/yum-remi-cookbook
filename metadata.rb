@@ -11,4 +11,4 @@ depends 'yum'
 
 supports 'centos', '>= 5.0'
 supports 'redhat', '>= 5.0'
-supports 'fedora', ">= 18"
+supports 'fedora', '>= 18.0'
