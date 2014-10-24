@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe 'yum-remi::default' do
   let(:chef_run) do
-    ChefSpec::Runner.new(
+    ChefSpec::SoloRunner.new(
       :platform => 'centos',
       :version => '6.5'
       ) do |node|

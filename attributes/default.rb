@@ -6,6 +6,6 @@ when 'fedora'
   when 20, 21
     default['yum-remi']['repositories'] = %w(remi remi-php56 remi-test)
   else
-  	default['yum-remi']['repositories'] = %w(remi remi-test)
+    default['yum-remi']['repositories'] = %w(remi remi-test)
   end
 end

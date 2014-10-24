@@ -10,8 +10,8 @@ when 'redhat', 'centos'
 when 'fedora'
   case node['platform_version'].to_i
   when 20, 21
-  	default['yum']['remi-test']['description'] = 'Les RPM de remi en test pour Fedora $releasever - $basearch'
-    default['yum']['remi-test']['mirrorlist'] = 'hhttp://rpms.famillecollet.com/fedora/$releasever/test/mirror'
+    default['yum']['remi-test']['description'] = 'Les RPM de remi en test pour Fedora $releasever - $basearch'
+    default['yum']['remi-test']['mirrorlist'] = 'http://rpms.famillecollet.com/fedora/$releasever/test/mirror'
   end
 end
 
