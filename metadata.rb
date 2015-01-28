@@ -1,6 +1,6 @@
 name 'yum-remi'
-maintainer 'Chef'
-maintainer_email 'Sean OMeara <sean@chef.io>'
+maintainer 'Mariani Lucas'
+maintainer_email 'marianilucas@gmail.com'
 license 'Apache 2.0'
 description 'Installs/Configures yum-remi'
 version '0.1.0'
