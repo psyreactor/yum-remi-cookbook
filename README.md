@@ -1,114 +1,123 @@
-[![Build Status](https://travis-ci.org/psyreactor/yum-remi-cookbook.svg?branch=master)](https://travis-ci.org/psyreactor/yum-remi-cookbook)
+yum-remi Cookbook
+=================
 
-Yum Remi Cookbook
-===============
-
-This cookbook install Remi repo Enterprise Linux.
-
-####[Remi Repo](http://http://rpms.famillecollet.com/)
-
-"Providing the  latest versions of the PHP stack, and some other software, to the Fedora and Enterprise Linux (RHEL, CentOS, Oracle, Scientific Linux, ...) users. It mainly contains :
-
-    packages I also maintains in Fedora
-    backports of packages available in Fedora development version
-    some packages incompatible with Fedora policy
-    some packages in progress before being submitted to Fedora repository
-    (nearly) vanilla versions
-"
+The yum-remi cookbook takes over management of the repositoryids of
+the [remi](http://rpms.famillecollet.com/) repository . It allows
+attribute manipulation of `remi`, `remi-php55`, `remi-php56`, and
+`remi-test` repositories.
 
 Requirements
 ------------
-#### Cookbooks:
+* Chef 11 or higher
+* yum cookbook version 3.0.0 or higher
 
-- yum - https://github.com/opscode-cookbooks/yum
+Platform Support
+----------------
+The following platforms have been tested with Test Kitchen:
 
-The following platforms and versions are tested and supported using Opscode's test-kitchen.
-
-- CentOS 5.8, 6.3
-
-The following platform families are supported in the code, and are assumed to work based on the successful testing on CentOS.
-
-
-- Red Hat (rhel)
-- Fedora
-- Amazon Linux
-
-#### yum-remi:default
-##### Basic Config
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>node['yum'][repo]['enabled']</tt></td>
-    <td>Boolean</td>
-    <td>Enable/Disable Repo</td>
-    <td><tt>true</tt></td>
-  </tr>
-  <tr>
-    <td><tt>node['yum'][repo]['gpgcheck']</tt></td>
-    <td>Boolean</td>
-    <td>check GPG Cert</td>
-    <td><tt>true</tt></td>
-  </tr>
-  <tr>
-    <td><tt>node['yum'][repo]['managed']</tt></td>
-    <td>Boolean</td>
-    <td>Enable/Disable managed</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
-
-repo = w%(remi remi-test remi-php55 remi-php56)
-
-Usage
------
-#### yum-remi::default
-Just include `yum-remi` in your node's `run_list`:
-
-```json
-{
-  "name":"my_node",
-  "run_list": [
-    "recipe[yum-remi]"
-  ]
-}
+```
+|-----------+------+------------+------------|
+|           | remi | remi-php55 | remi-php56 |
+|-----------+------+------------+------------|
+| centos-5  | X    | X          | X          |
+|-----------+------+------------+------------|
+| centos-6  | X    | X          | X          |
+|-----------+------+------------+------------|
+| centos-7  | X    | X          | X          |
+|-----------+------+------------+------------|
+| redhat-7  | X    | X          | X          |
+|-----------+------+------------+------------|
+| fedora-20 | X    |            | X          |
+|-----------+------+------------+------------|
+| fedora-21 | X    |            |            |
+|-----------+------+------------+------------|
 ```
 
-Example enable test repo
+Amazon Linux is *not* supported by the Remi repository. Amazon
+maintains their own PHP packages natively, as php53, php54, php55, and
+php56.
 
-```json
-"default_attributes": {
-  "yum": {
-    "remi-test": {
-      "gpgcheck": true,
-      "managed": true,
-      "enabled": true
-    }
-  }
-}
+Attributes
+----------
+The following attributes are set by default
+
+``` ruby
+default['yum']['remi']['repositoryid'] = 'remi'
+default['yum']['remi']['baseurl'] = 'http://rpms.famillecollet.com/enterprise/5/remi/$basearch/'
+default['yum']['remi']['description'] = 'Les RPM de remi pour Enterprise Linux 5 - $basearch'
+default['yum']['remi']['enabled'] = true
+default['yum']['remi']['gpgcheck'] = true
+default['yum']['remi']['gpgkey'] = 'http://rpms.famillecollet.com/RPM-GPG-KEY-remi'
 ```
 
-Contributing
-------------
+``` ruby
+default['yum']['remi-php55']['repositoryid'] = 'remi-php55'
+default['yum']['remi-php55']['baseurl'] = 'http://rpms.famillecollet.com/enterprise/5/php55/$basearch/'
+default['yum']['remi-php55']['description'] = 'Les RPM de remi de PHP 5.5 pour Enterprise Linux 5 - $basearch'
+default['yum']['remi-php55']['enabled'] = true
+default['yum']['remi-php55']['gpgcheck'] = true
+default['yum']['remi-php55']['gpgkey'] = 'http://rpms.famillecollet.com/RPM-GPG-KEY-remi'
+```
 
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write your change
-4. Write tests for your change (if applicable)
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
+``` ruby
+default['yum']['remi-php55']['repositoryid'] = 'remi-php56'
+default['yum']['remi-php55']['baseurl'] = 'http://rpms.famillecollet.com/enterprise/5/php56/$basearch/'
+default['yum']['remi-php55']['description'] = 'Les RPM de remi de PHP 5.6 pour Enterprise Linux 5 - $basearch'
+default['yum']['remi-php55']['enabled'] = true
+default['yum']['remi-php55']['gpgcheck'] = true
+default['yum']['remi-php55']['gpgkey'] = 'http://rpms.famillecollet.com/RPM-GPG-KEY-remi'
+```
 
-[More details](https://github.com/psyreactor/yum-remi-cookbook/blob/master/CONTRIBUTING.md)
+Recipes
+-------
+* default - Walks through node attributes and feeds a yum_resource
+  parameters. The following is an example a resource generated by the
+  recipe during compilation.
 
-License and Authors
--------------------
-Authors:
-Lucas Mariani (Psyreactor)
-- [marianiluca@gmail.com](mailto:marianiluca@gmail.com)
-- [https://github.com/psyreactor](https://github.com/psyreactor)
-- [http://blog.psyreactor.com.ar](http://blog.psyreactor.com.ar)
+```ruby
+  yum_repository 'remi' do
+    baseurl 'http://rpms.famillecollet.com/enterprise/6/remi/$basearch/'
+    description 'Les RPM de remi pour Enterprise Linux 6 - $basearch'
+    enabled true
+    gpgcheck true
+    gpgkey 'http://rpms.famillecollet.com/RPM-GPG-KEY-remi'
+  end
+```
 
+Usage Example
+-------------
+To disable the remi repository through a Role or Environment definition
+
+```
+default_attributes(
+  :yum => {
+    :remi => {
+      :enabled => {
+        false
+       }
+     }
+   }
+ )
+```
+
+More Examples
+-------------
+Point the base and updates repositories at an internally hosted server.
+
+```
+node.default['yum']['remi']['enabled'] = true
+node.default['yum']['remi']['mirrorlist'] = nil
+node.default['yum']['remi']['baseurl'] = 'https://internal.example.com/enterprise/5/remi/$basearch/'
+node.default['yum']['remi']['sslverify'] = false
+
+include_recipe 'yum-remi'
+```
+
+License & Authors
+-----------------
+- Authors: Lucas Mariani (Psyreactor)
+- Author:: Sean OMeara (<sean@chef.io>)
+
+- marianiluca@gmail.com
+- https://github.com/psyreactor
+- http://blog.psyreactor.com.ar

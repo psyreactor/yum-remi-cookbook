@@ -1,7 +1,6 @@
-# 0.1.0
+yum-remi Cookbook CHANGELOG
+===========================
 
-Initial release of yum-remi repos
-
-* Enhancements
-  * Add repo remi for RHEL familys
-
+v0.1.0
+------
+initial release
