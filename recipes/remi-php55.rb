@@ -2,7 +2,7 @@
 # Author:: Sean OMeara (<sean@chef.io>)
 # Recipe:: yum-remi::remi-php55
 #
-# Copyright 2015, Chef
+# Copyright 2016, Chef
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe 'yum-epel' unless node['platform'] == 'fedora'
 include_recipe 'yum-remi::remi'
 
 %w(remi-php55 remi-php55-debuginfo).each do |repo|

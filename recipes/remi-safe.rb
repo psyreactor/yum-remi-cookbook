@@ -1,8 +1,8 @@
 #
-# Author:: Sean OMeara (<sean@chef.io>)
-# Recipe:: yum-remi::remi-php56
+# Author:: Andrew Miller (<andrew.miller@rakuten.com>)
+# Recipe:: yum-remi::remi-safe
 #
-# Copyright 2016, Chef
+# Copyright 2016, Rakuten, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,9 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe 'yum-remi::remi'
-
-%w(remi-php56 remi-php56-debuginfo).each do |repo|
+%w(remi-safe).each do |repo|
   next unless node['yum'][repo]['managed']
 
   yum_repository repo do

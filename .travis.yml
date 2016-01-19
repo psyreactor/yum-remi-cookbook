@@ -1,7 +1,7 @@
-language: 
+language:
   - ruby
 rvm:
-  - 2.0.0
+  - 2.1.0
 bundler_args: --without integration --without kitchen_vagrant --without kitchen_cloud
 script:
   - bundle exec foodcritic .

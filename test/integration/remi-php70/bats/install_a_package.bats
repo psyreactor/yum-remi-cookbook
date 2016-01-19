@@ -3,5 +3,5 @@
 }
 
 @test "verify expected version" {
-      php --version | grep "^PHP 5.5" || cat /etc/redhat-release | grep ^Fedora
+      php --version | grep "^PHP 7.0"
 }

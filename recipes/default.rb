@@ -2,7 +2,7 @@
 # Cookbook Name:: yum-remi
 # Recipe:: default
 #
-# Copyright 2014, Mariani Lucas
+# Copyright 2016, Mariani Lucas
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,9 +15,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
-node['yum-remi']['repositories'].each do |repo|
 
+node['yum-remi']['repositories'].each do |repo|
   yum_repository repo do
     baseurl node['yum'][repo]['baseurl']
     cost node['yum'][repo]['cost']
@@ -56,5 +55,4 @@ node['yum-remi']['repositories'].each do |repo|
     action :create
     not_if { node['yum'][repo]['managed'] == false }
   end
-
 end
