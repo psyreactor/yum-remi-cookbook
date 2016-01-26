@@ -21,7 +21,34 @@ unless node['platform'] == 'fedora'
   include_recipe 'yum-remi::remi-safe'
 end
 
-%w(remi remi-debuginfo).each do |repo|
+if !node['recipes'].include?('yum-remi::remi-php55') ||
+   !node['recipes'].include?('yum-remi::remi-php55-debuginfo') ||
+   !node['recipes'].include?('yum-remi::remi-php56') ||
+   !node['recipes'].include?('yum-remi::remi-php56-debuginfo') ||
+   !node['recipes'].include?('yum-remi::remi-php70') ||
+   !node['recipes'].include?('yum-remi::remi-php70-debuginfo') ||
+   !node['recipes'].include?('yum-remi::remi-php70-test') ||
+   !node['recipes'].include?('yum-remi::remi-php70-test-debuginfo')
+  %w(
+    remi-php55
+    remi-php55-debuginfo
+    remi-php56
+    remi-php56-debuginfo
+    remi-php70
+    remi-php70-debuginfo
+    remi-php70-test
+    remi-php70-test-debuginfo
+  ).each do |repo|
+    yum_repository repo do
+      action :delete
+    end
+  end
+end
+
+%w(
+  remi
+  remi-debuginfo
+).each do |repo|
   next unless node['yum'][repo]['managed']
 
   yum_repository repo do

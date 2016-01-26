@@ -18,7 +18,23 @@
 
 include_recipe 'yum-remi::remi'
 
-%w(remi-php55 remi-php55-debuginfo).each do |repo|
+%w(
+  remi-php56
+  remi-php56-debuginfo
+  remi-php70
+  remi-php70-debuginfo
+  remi-php70-test
+  remi-php70-test-debuginfo
+).each do |repo|
+  yum_repository repo do
+    action :delete
+  end
+end
+
+%w(
+  remi-php55
+  remi-php55-debuginfo
+).each do |repo|
   next unless node['yum'][repo]['managed']
 
   yum_repository repo do

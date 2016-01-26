@@ -16,7 +16,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-%w(remi-safe).each do |repo|
+%w(
+  remi-safe
+).each do |repo|
   next unless node['yum'][repo]['managed']
 
   yum_repository repo do

@@ -15,6 +15,21 @@ describe 'yum-remi::remi' do
     end
 
     %w(
+      remi-php55
+      remi-php55-debuginfo
+      remi-php56
+      remi-php56-debuginfo
+      remi-php70
+      remi-php70-debuginfo
+      remi-php70-test
+      remi-php70-test-debuginfo
+    ).each do |repo|
+      it "deletes yum_repository[#{repo}]" do
+        expect(centos_511_remi).to delete_yum_repository(repo)
+      end
+    end
+
+    %w(
       remi
       remi-safe
       remi-debuginfo
@@ -36,6 +51,21 @@ describe 'yum-remi::remi' do
         node.set['yum']['remi-debuginfo']['enabled'] = true
         node.set['yum']['remi-debuginfo']['managed'] = true
       end.converge(described_recipe)
+    end
+
+    %w(
+      remi-php55
+      remi-php55-debuginfo
+      remi-php56
+      remi-php56-debuginfo
+      remi-php70
+      remi-php70-debuginfo
+      remi-php70-test
+      remi-php70-test-debuginfo
+    ).each do |repo|
+      it "deletes yum_repository[#{repo}]" do
+        expect(centos_66_remi).to delete_yum_repository(repo)
+      end
     end
 
     %w(
@@ -62,12 +92,24 @@ describe 'yum-remi::remi' do
       end.converge(described_recipe)
     end
 
-    it 'creates yum_repository[remi-safe]' do
-      expect(centos_70_remi).to create_yum_repository('remi-safe')
+    %w(
+      remi-php55
+      remi-php55-debuginfo
+      remi-php56
+      remi-php56-debuginfo
+      remi-php70
+      remi-php70-debuginfo
+      remi-php70-test
+      remi-php70-test-debuginfo
+    ).each do |repo|
+      it "deletes yum_repository[#{repo}]" do
+        expect(centos_70_remi).to delete_yum_repository(repo)
+      end
     end
 
     %w(
       remi
+      remi-safe
       remi-debuginfo
     ).each do |repo|
       it "creates yum_repository[#{repo}]" do
