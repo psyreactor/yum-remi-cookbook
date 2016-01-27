@@ -3,13 +3,71 @@ driver:
   name: vagrant
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
 
 platforms:
-  - name: centos-6.5
+  - name: centos-5.11
+  - name: centos-6.7
+  - name: centos-7.2
+  - name: fedora-21
+  - name: fedora-22
+  - name: fedora-23
 
 suites:
-  - name: default
-    run_list:
-      - recipe[yum-remi::default]
-    attributes:
+- name: remi
+  run_list:
+  - recipe[yum-remi::remi]
+  attributes:
+    yum:
+      remi:
+        enabled: true
+        managed: true
+
+- name: remi-php55
+  run_list:
+  - recipe[yum-remi::remi-php55]
+  attributes:
+    yum:
+      remi:
+        enabled: true
+        managed: true
+      remi-php55:
+        enabled: true
+        managed: true
+  excludes: [
+    'fedora-21',
+    'fedora-22',
+    'fedora-23',
+  ]
+
+- name: remi-php56
+  run_list:
+  - recipe[yum-remi::remi-php56]
+  attributes:
+    yum:
+      remi:
+        enabled: true
+        managed: true
+      remi-php56:
+        enabled: true
+        managed: true
+  excludes: [
+    'fedora-21',
+    'fedora-22',
+    'fedora-23',
+  ]
+
+- name: remi-php70
+  run_list:
+  - recipe[yum-remi::remi-php70]
+  attributes:
+    yum:
+      remi:
+        enabled: true
+        managed: true
+      remi-php70:
+        enabled: true
+        managed: true
+  excludes: [
+    'centos-5.11',
+  ]

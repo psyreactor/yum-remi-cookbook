@@ -1,19 +1,38 @@
 default['yum']['remi-php56']['repositoryid'] = 'remi-php56'
+default['yum']['remi-php56']['gpgkey'] = 'http://rpms.remirepo.net/RPM-GPG-KEY-remi'
+default['yum']['remi-php56']['gpgcheck'] = true
+default['yum']['remi-php56']['enabled'] = true
+default['yum']['remi-php56']['managed'] = true
 
 case node['platform']
-when 'amazon'
-  default['yum']['remi-php56']['description'] = 'Les RPM de remi de PHP 5.6 pour Enterprise Linux 6 - $basearch'
-  default['yum']['remi-php56']['mirrorlist'] = 'http://rpms.famillecollet.com/enterprise/6/php56/mirror'
-when 'redhat', 'centos'
-  default['yum']['remi-php56']['description'] = "Les RPM de remi de PHP 5.6 pour Enterprise Linux #{node['platform_version'].to_i} - $basearch"
-  default['yum']['remi-php56']['mirrorlist'] = "http://rpms.famillecollet.com/enterprise/#{node['platform_version'].to_i}/php56/mirror"
 when 'fedora'
-  default['yum']['remi-php56']['description'] = 'Les RPM de remi de PHP 5.6 - Fedora $releasever - $basearch'
-  default['yum']['remi-php56']['mirrorlist'] = 'http://rpms.famillecollet.com/fedora/$releasever/php56'
+  case node['platform_version'].to_i
+  when 21
+    # default['yum']['remi-php56']['baseurl'] = 'http://rpms.remirepo.net/fedora/21/php56/$basearch/'
+    default['yum']['remi-php56']['mirrorlist'] = 'http://rpms.remirepo.net/fedora/21/php56/mirror'
+    default['yum']['remi-php56']['description'] = "Remi's PHP 5.6 RPM repository for Fedora Linux 21 - $basearch"
+  when 22
+    # default['yum']['remi-php56']['baseurl'] = 'http://rpms.remirepo.net/fedora/22/php56/$basearch/'
+    default['yum']['remi-php56']['mirrorlist'] = 'http://rpms.remirepo.net/fedora/22/php56/mirror'
+    default['yum']['remi-php56']['description'] = "Remi's PHP 5.6 RPM repository for Fedora Linux 22 - $basearch"
+  when 23
+    # default['yum']['remi-php56']['baseurl'] = 'http://rpms.remirepo.net/fedora/23/php56/$basearch/'
+    default['yum']['remi-php56']['mirrorlist'] = 'http://rpms.remirepo.net/fedora/23/php56/mirror'
+    default['yum']['remi-php56']['description'] = "Remi's PHP 5.6 RPM repository for Fedora Linux 23 - $basearch"
+  end
+else
+  case node['platform_version'].to_i
+  when 5
+    # default['yum']['remi-php56']['baseurl'] = 'http://rpms.remirepo.net/enterprise/5/php56/$basearch/'
+    default['yum']['remi-php56']['mirrorlist'] = 'http://rpms.remirepo.net/enterprise/5/php56/mirror'
+    default['yum']['remi-php56']['description'] = "Remi's PHP 5.6 RPM repository for Enterprise Linux 5 - $basearch"
+  when 6
+    # default['yum']['remi-php56']['baseurl'] = 'http://rpms.remirepo.net/enterprise/6/php56/$basearch/'
+    default['yum']['remi-php56']['mirrorlist'] = 'http://rpms.remirepo.net/enterprise/6/php56/mirror'
+    default['yum']['remi-php56']['description'] = "Remi's PHP 5.6 RPM repository for Enterprise Linux 6 - $basearch"
+  when 7
+    # default['yum']['remi-php56']['baseurl'] = 'http://rpms.remirepo.net/enterprise/7/php56/$basearch/'
+    default['yum']['remi-php56']['mirrorlist'] = 'http://rpms.remirepo.net/enterprise/7/php56/mirror'
+    default['yum']['remi-php56']['description'] = "Remi's PHP 5.6 RPM repository for Enterprise Linux 7 - $basearch"
+  end
 end
-
-default['yum']['remi-php56']['gpgkey'] = 'http://rpms.famillecollet.com/RPM-GPG-KEY-remi'
-default['yum']['remi-php56']['failovermethod'] = 'roundrobin'
-default['yum']['remi-php56']['gpgcheck'] = true
-default['yum']['remi-php56']['enabled'] = false
-default['yum']['remi-php56']['managed'] = true

@@ -1,7 +1,12 @@
-# 0.1.0
+yum-remi Cookbook CHANGELOG
+===========================
 
-Initial release of yum-remi repos
+v1.0.0
+------
+Removed support for Fedora linux older than 21.
+Updated for most recent remi repositories.
+Added remi-php70.
 
-* Enhancements
-  * Add repo remi for RHEL familys
-
+v0.1.0
+------
+initial release

@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: yum-remi
-# Recipe:: default
+# Author:: Andrew Miller (<andrew.miller@rakuten.com>)
+# Recipe:: yum-remi::remi-php70-test
 #
-# Copyright 2016, Mariani Lucas
+# Copyright 2016, Rakuten, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,14 +16,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-node['yum-remi']['conflicts'].each do |repo|
-  yum_repository "yum-remi-default-delete-#{repo}" do
+include_recipe 'yum-remi::remi'
+
+%w(
+  remi-php55
+  remi-php55-debuginfo
+  remi-php56
+  remi-php56-debuginfo
+).each do |repo|
+  yum_repository "remi-php70-test-delete-#{repo}" do
     repositoryid node['yum'][repo]['repositoryid']
     action :delete
   end
 end
 
-node['yum-remi']['repositories'].each do |repo|
+%w(
+  remi-php70-test
+  remi-php70-test-debuginfo
+).each do |repo|
+  next unless node['yum'][repo]['managed']
+
   yum_repository repo do
     baseurl node['yum'][repo]['baseurl'] unless node['yum'][repo]['baseurl'].nil?
     cost node['yum'][repo]['cost'] unless node['yum'][repo]['cost'].nil?

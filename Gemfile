@@ -1,22 +1,26 @@
 source 'https://rubygems.org'
 
-gem 'berkshelf'
-gem 'foodcritic'
-gem 'rubocop'
-gem 'rspec'
-gem 'chefspec'
-
-group :guard do
-  gem 'guard'
-  gem 'guard-foodcritic'
-  gem 'guard-kitchen'
-  gem 'guard-rubocop'
-  gem 'guard-rspec'
+group :lint do
+  gem 'foodcritic', '~> 6.0'
+  gem 'rubocop',    '~> 0.36'
 end
 
-group :integration do
-  gem 'test-kitchen'
-  gem 'kitchen-docker'
+group :unit do
+  gem 'berkshelf',  '~> 4.0'
+  gem 'chefspec',   '~> 4.5'
+end
+
+group :kitchen_common do
+  gem 'test-kitchen', '~> 1.4'
+end
+
+group :kitchen_vagrant do
   gem 'kitchen-vagrant'
-  gem 'chef-zero'
+end
+
+group :kitchen_cloud do
+  gem 'kitchen-digital_ocean'
+  gem 'kitchen-ec2'
+  gem 'kitchen-joyent'
+  gem 'kitchen-gce'
 end
