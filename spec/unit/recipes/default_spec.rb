@@ -9,8 +9,30 @@ describe 'yum-remi::default' do
       ).converge(described_recipe)
     end
 
-    it 'creates yum_repository[remi]' do
-      expect(fedora_20_default).to create_yum_repository('remi')
+    %w(
+      remi-debuginfo
+      remi-php55-debuginfo
+      remi-php55
+      remi-php56-debuginfo
+      remi-php70-debuginfo
+      remi-php70-test-debuginfo
+      remi-php70-test
+      remi-php70
+      remi-safe
+      remi-test-debuginfo
+    ).each do |repo|
+      it "deletes yum_repository[#{repo}]" do
+        expect(fedora_20_default).to delete_yum_repository("yum-remi-default-delete-#{repo}")
+      end
+    end
+
+    %w(
+      remi
+      remi-php56
+    ).each do |repo|
+      it "creates yum_repository[#{repo}]" do
+        expect(fedora_20_default).to create_yum_repository(repo)
+      end
     end
   end
 
@@ -20,6 +42,23 @@ describe 'yum-remi::default' do
         platform: 'fedora',
         version: '21'
       ).converge(described_recipe)
+    end
+
+    %w(
+      remi-debuginfo
+      remi-php55-debuginfo
+      remi-php55
+      remi-php56-debuginfo
+      remi-php56
+      remi-php70-debuginfo
+      remi-php70-test-debuginfo
+      remi-php70-test
+      remi-safe
+      remi-test-debuginfo
+    ).each do |repo|
+      it "deletes yum_repository[#{repo}]" do
+        expect(fedora_21_default).to delete_yum_repository("yum-remi-default-delete-#{repo}")
+      end
     end
 
     %w(
@@ -41,6 +80,23 @@ describe 'yum-remi::default' do
     end
 
     %w(
+      remi-debuginfo
+      remi-php55-debuginfo
+      remi-php55
+      remi-php56-debuginfo
+      remi-php56
+      remi-php70-debuginfo
+      remi-php70-test-debuginfo
+      remi-php70-test
+      remi-safe
+      remi-test-debuginfo
+    ).each do |repo|
+      it "deletes yum_repository[#{repo}]" do
+        expect(fedora_22_default).to delete_yum_repository("yum-remi-default-delete-#{repo}")
+      end
+    end
+
+    %w(
       remi
       remi-php70
     ).each do |repo|
@@ -59,6 +115,23 @@ describe 'yum-remi::default' do
     end
 
     %w(
+      remi-debuginfo
+      remi-php55-debuginfo
+      remi-php55
+      remi-php56-debuginfo
+      remi-php56
+      remi-php70-debuginfo
+      remi-php70-test-debuginfo
+      remi-php70-test
+      remi-safe
+      remi-test-debuginfo
+    ).each do |repo|
+      it "deletes yum_repository[#{repo}]" do
+        expect(fedora_23_default).to delete_yum_repository("yum-remi-default-delete-#{repo}")
+      end
+    end
+
+    %w(
       remi
       remi-php70
     ).each do |repo|
@@ -74,6 +147,20 @@ describe 'yum-remi::default' do
         platform: 'centos',
         version: '5.11'
       ).converge(described_recipe)
+    end
+
+    %w(
+      remi-dev
+      remi-php55-debuginfo
+      remi-php55
+      remi-php70-debuginfo
+      remi-php70-test-debuginfo
+      remi-php70-test
+      remi-php70
+    ).each do |repo|
+      it "deletes yum_repository[#{repo}]" do
+        expect(centos_511_default).to delete_yum_repository("yum-remi-default-delete-#{repo}")
+      end
     end
 
     %w(
@@ -96,6 +183,18 @@ describe 'yum-remi::default' do
     end
 
     %w(
+      remi-dev
+      remi-php55-debuginfo
+      remi-php55
+      remi-php56-debuginfo
+      remi-php56
+    ).each do |repo|
+      it "deletes yum_repository[#{repo}]" do
+        expect(centos_66_default).to delete_yum_repository("yum-remi-default-delete-#{repo}")
+      end
+    end
+
+    %w(
       remi
       remi-safe
       remi-php70
@@ -112,6 +211,18 @@ describe 'yum-remi::default' do
         platform: 'centos',
         version: '7.0'
       ).converge(described_recipe)
+    end
+
+    %w(
+      remi-dev
+      remi-php55-debuginfo
+      remi-php55
+      remi-php56-debuginfo
+      remi-php56
+    ).each do |repo|
+      it "deletes yum_repository[#{repo}]" do
+        expect(centos_70_default).to delete_yum_repository("yum-remi-default-delete-#{repo}")
+      end
     end
 
     %w(

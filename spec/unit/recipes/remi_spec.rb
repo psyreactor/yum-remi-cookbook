@@ -25,7 +25,7 @@ describe 'yum-remi::remi' do
       remi-php70-test-debuginfo
     ).each do |repo|
       it "deletes yum_repository[#{repo}]" do
-        expect(centos_511_remi).to delete_yum_repository(repo)
+        expect(centos_511_remi).to delete_yum_repository("remi-delete-#{repo}")
       end
     end
 
@@ -64,7 +64,7 @@ describe 'yum-remi::remi' do
       remi-php70-test-debuginfo
     ).each do |repo|
       it "deletes yum_repository[#{repo}]" do
-        expect(centos_66_remi).to delete_yum_repository(repo)
+        expect(centos_66_remi).to delete_yum_repository("remi-delete-#{repo}")
       end
     end
 
@@ -103,7 +103,7 @@ describe 'yum-remi::remi' do
       remi-php70-test-debuginfo
     ).each do |repo|
       it "deletes yum_repository[#{repo}]" do
-        expect(centos_70_remi).to delete_yum_repository(repo)
+        expect(centos_70_remi).to delete_yum_repository("remi-delete-#{repo}")
       end
     end
 
